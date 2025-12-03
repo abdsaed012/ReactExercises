@@ -10,7 +10,7 @@ const TitleUpdate = () => {
     } else {
       document.title = `${greeting}, ${name}`;
     }
-  }, [name, greeting]); // Re-run effect when name or greeting changes
+  }, [name, greeting]); 
 
   return (
     <div>
