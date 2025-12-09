@@ -1,29 +1,26 @@
 import { useState } from "react";
 
 const App = () => {
-  const [userData, setUserData] = useState(null);  // Store single user data
-  const [username, setUsername] = useState('');  // Store the username entered by the user
-  const [error, setError] = useState(null);  // Handle errors if user not found
+  const [userData, setUserData] = useState(null); 
+  const [username, setUsername] = useState(''); 
+  const [error, setError] = useState(null);  
 
-  // Function to handle the search
   const getUser = async () => {
-    setError(null);  // Reset error when trying a new search
+    setError(null);  
     try {
       const response = await fetch(`https://api.github.com/users/${username}`);
       if (!response.ok) {
-        throw new Error('User not found');  // If the response is not ok, throw an error
+        throw new Error('User not found');  
       }
       const data = await response.json();
-      setUserData(data);  // Set the user data when found
+      setUserData(data);  
     } catch (error) {
-      setError(error.message);  // If error, set the error message
-      setUserData(null);  // Reset user data if error occurs
+      setError(error.message);  
     }
   };
 
-  // Function to handle input change
   const getUsername = (e) => {
-    setUsername(e.target.value);  // Update username state when input changes
+    setUsername(e.target.value);  
   };
 
   return (
@@ -39,22 +36,22 @@ const App = () => {
         <button onClick={getUser}>Search</button>
       </div>
 
-      {error && <div className="error">{error}</div>}  {/* Show error message if any */}
+      {error && <div>{error}</div>}  
 
       {userData && (
-        <div className="user-card">
-          <div className="avatar">
+        <div>
+          <div>
             <img src={userData.avatar_url} alt={userData.login} />
           </div>
-          <div className="user-info">
+          <div>
             <h2>{userData.name || 'No name available'}</h2>
-            <p className="username">@{userData.login}</p>
-            <p className="location">{userData.location || 'Location not available'}</p>
-            <div className="stats">
-              <div className="stat-item">
+            <p>@{userData.login}</p>
+            <p>{userData.location || 'Location not available'}</p>
+            <div>
+              <div>
                 <p><strong>Followers:</strong> {userData.followers}</p>
               </div>
-              <div className="stat-item">
+              <div>
                 <p><strong>Public Repos:</strong> {userData.public_repos}</p>
               </div>
             </div>
